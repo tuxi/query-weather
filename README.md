@@ -1,9 +1,2 @@
-# weather-bot
-check whether of any city
+# weather_query_api
 
->clone repository
-
-```
-cd weather-bot
-python weather.py
-```
