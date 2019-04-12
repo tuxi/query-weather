@@ -1,3 +1,3 @@
-# weather_query_api
+# Query weather
 
 
