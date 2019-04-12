@@ -20,7 +20,8 @@ def queryByCityName(city_name):
     :param city_name:
     :return:
     '''
-    return request_api(openweathermap_url, {"q": city_name, "APPID": openweathermap_api_key})
+    # &units=imperial
+    return request_api(openweathermap_url, {"q": city_name, "APPID": openweathermap_api_key, "units": units_metric})
 
 def queryByCityID(city_id):
     '''
@@ -28,7 +29,7 @@ def queryByCityID(city_id):
     :param city_id:
     :return:
     '''
-    return request_api(openweathermap_url, {"id": city_id, "APPID": openweathermap_api_key})
+    return request_api(openweathermap_url, {"id": city_id, "APPID": openweathermap_api_key, "units": units_metric})
 
 
 def queryByZip(zip):
@@ -37,7 +38,7 @@ def queryByZip(zip):
     :param zip:
     :return:
     '''
-    return request_api(openweathermap_url, {"zip": zip, "APPID": openweathermap_api_key})
+    return request_api(openweathermap_url, {"zip": zip, "APPID": openweathermap_api_key, "units": units_metric})
 
 
 def queryByGeo(lat, lon):
@@ -47,7 +48,7 @@ def queryByGeo(lat, lon):
     :param lng:
     :return:
     '''
-    return request_api(openweathermap_url, {"lat": lat, "lon": lon, "APPID": openweathermap_api_key})
+    return request_api(openweathermap_url, {"lat": lat, "lon": lon, "APPID": openweathermap_api_key, "units": units_metric})
 
 
 def request_api( url, params):
@@ -57,6 +58,8 @@ def request_api( url, params):
 
 class Weather(object):
     def __init__(self, dict):
+        print(dict)
+        print("\n")
         self.country = dict['sys']['country']
         self.latitude = dict['coord']['lat']
         self.longitude = dict['coord']['lon']
@@ -65,15 +68,15 @@ class Weather(object):
         # 天气的描述
         self.description = dict['weather'][0]['description']
         # 当前温度 开尔文
-        self.temperature = int(dict["main"]['temp']) - 273
+        self.temperature = int(dict["main"]['temp'])
         # 最高温
-        self.max_temperature = int(dict['main']['temp_max']) - 273
+        self.max_temperature = int(dict['main']['temp_max'])
         # 最低温
-        self.min_temperature = int(dict['main']['temp_min']) - 273
+        self.min_temperature = int(dict['main']['temp_min'])
         # 风速
         self.wind_speed = float(dict["wind"]["speed"])
         # 风向
-        self.wind_direction = float(dict["wind"]["deg"])
+        #self.wind_direction = float(dict["wind"]["deg"])
         # 天气的图标id
         self.icon = dict['weather'][0]['icon']
         # 城市名称
@@ -90,7 +93,7 @@ class Weather(object):
             "max_temperature": self.max_temperature,
             "min_temperature": self.min_temperature,
             "wind_speed": self.wind_speed,
-            "wind_direction": self.wind_direction,
+            #"wind_direction": self.wind_direction,
             "icon": self.icon,
             "city_name": self.city_name
         }
@@ -104,9 +107,9 @@ class Weather(object):
                 ||  Longitude       : {long}
                 ||  Whether         : {weather}
                 ||  Description     : {description}
-                ||  Min Temp        : {min_temp}
-                ||  Max Temp        : {max_temp}
-                ||  Current Temp    : {temp}
+                ||  Min Temp        : {min_temp}°C
+                ||  Max Temp        : {max_temp}°C
+                ||  Current Temp    : {temp}°C
                 ======================================""".format(country=self.country,
                                                                  city=self.city_name,
                                                                  lat=self.latitude,
@@ -124,8 +127,8 @@ if __name__ == "__main__":
     # weather = query(lat=39.91, lon=116.4)
 
     # 根据城市名称查询天气
-    # weather = query(city_name="Beijing")
+    weather = query(city_name="Beijing")
 
     # 根据城市id查询天气
-    weather = query(city_id=2038349)
+    # weather = query(city_id=2038349)
     print(weather.debugDescription())
