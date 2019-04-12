@@ -55,11 +55,13 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{ city_weather.city }}</span>
-                                        <br>
-                                        <span class="country">{{ city_weather.country }}</span>
+                                        <span class="title">{{ city_weather.city }}, {{ city_weather.country }}</span>
                                         <br>
                                         <span class="subtitle">{{ city_weather.temperature }}° C</span>
+                                        <br>
+                                        <span class="subtitle">max: {{ city_weather.max_temperature }}° C</span>
+                                        <br>
+                                        <span class="subtitle">min: {{ city_weather.min_temperature }}° C</span>
                                         <br> {{ city_weather.description }}
                                     </p>
                                 </div>
