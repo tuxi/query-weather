@@ -14,7 +14,7 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    What's the weather like?
+                    今天天气怎么样？
                 </h1>
             </div>
         </div>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="control">
                                 <button type="submit" class="button is-info">
-                                    Add City
+                                    添加城市
                                 </button>
                             </div>
                         </div>
@@ -57,12 +57,14 @@
                                     <p>
                                         <span class="title">{{ city_weather.city }}, {{ city_weather.country }}</span>
                                         <br>
-                                        <span class="subtitle">{{ city_weather.temperature }}° C</span>
                                         <br>
-                                        <span class="subtitle">max: {{ city_weather.max_temperature }}° C</span>
+                                        <span class="subtitle">天气： {{ city_weather.description }}</span>
                                         <br>
-                                        <span class="subtitle">min: {{ city_weather.min_temperature }}° C</span>
-                                        <br> {{ city_weather.description }}
+                                        <span class="subtitle">温度：{{ city_weather.temperature }}° C</span>
+                                        <br>
+                                        <span class="subtitle">最高温：{{ city_weather.max_temperature }}° C</span>
+                                        <br>
+                                        <span class="subtitle">最低温：{{ city_weather.min_temperature }}° C</span>
                                     </p>
                                 </div>
                             </div>

@@ -9,6 +9,7 @@ from .forms import CityForm
 from django.db.models import Q
 from datetime import datetime, timezone, timedelta
 from conf import openweathermap_api_key
+from xpinyin import Pinyin
 
 class Weather(Exception):
     pass
@@ -31,9 +32,10 @@ def query_weather(cities, is_search_key):
         diff_seconds = (nowtime - city.query_time).seconds
 
         if diff_seconds > 600 or city.query_time == bj_nowtime or is_search_key:
-            dict = requests.get(url.format(city.name)).json()
-            print(dict)
-            print("\n")
+            # 将中文city转换为拼音
+            p = Pinyin()
+            city_pinyin = p.get_pinyin(city.name, '')
+            dict = requests.get(url.format(city_pinyin)).json()
 
             city.temperature = dict['main']['temp']
             city.weather_description = dict['weather'][0]['description']
